@@ -11,7 +11,7 @@ void draw()
 	float max = Core.getDrawingMax();
 	float min = Core.getDrawingMin();
 
-        float diff = max - min;
+    float diff = max - min;
 
 	for(int x = 0; x < drawingGrid.length; x++)
 	{
@@ -45,6 +45,48 @@ void keyPressed()
 		case 'I':
 			Core.simulator.initializeGrid();
 			break;
+
+		case 'd':
+		case 'D':
+			Core.simulator.react = !Core.simulator.react;
+			break;
+
+		case 'p':
+		case 'P':
+			Core.simulator.varyFAndK = !Core.simulator.varyFAndK;
+			break;
+		
+		case '1':
+			Core.simulator.setFAndK(1);
+			break;
+		
+		case '2':
+			Core.simulator.setFAndK(2);
+			break;
+
+		case '3':
+			Core.simulator.setFAndK(3);
+			break;
+	
+		case '4':
+			Core.simulator.setFAndK(4);
+			break;
+	}
+}
+
+void mouseClicked()
+{
+	if(mouseX - rightShift >= 0 && mouseY - downShift >= 0)
+	{
+		println("U: " + Core.simulator.u[(mouseX - rightShift) / Config.gridSize][(mouseY - downShift) / Config.gridSize]);
+		println("V: " + Core.simulator.v[(mouseX - rightShift) / Config.gridSize][(mouseY - downShift) / Config.gridSize]);
+		
+		if(Core.simulator.varyFAndK)
+		{
+			println("K: " + (((mouseX - rightShift)/ Config.gridSize) * (0.04 / Core.simulator.u.length) + 0.03f));
+			println("F: " + ((mouseY - downShift)/ Config.gridSize) * (0.08 / Core.simulator.u.length));	
+		}
+		println("");
 	}
 }
 

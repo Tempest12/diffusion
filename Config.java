@@ -13,16 +13,16 @@ public class Config
 
 	//Simulation Stuff
 	public static int ticks = 1;
-	public static float timeStep = 1.5f;
+	public static float timeStep = 1.25f;
 	
 	public static boolean startOnLoad = true;
 	public static boolean varyFAndK = false;
-	public static int defaultFAndK = 3;
+	public static int defaultFAndK = 2;
 	
-	public static int numberOfRandomBlocks = 4;
+	public static int numberOfRandomBlocks = 100;
 
 
 	//Window Stuff
-	public static int width = 600;
-	public static int height = 600;
+	public static int width = 900;
+	public static int height = 900;
 }	

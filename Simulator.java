@@ -22,6 +22,7 @@ public class Simulator
 	public float minV;
 	public float maxV;
 
+	public boolean react = true;
 
 	public Simulator()
 	{
@@ -184,20 +185,56 @@ public class Simulator
 		{
 			ticks--;	
 		
-
-			for(int x = 0; x < u.length; x++)
+			if(react)
 			{
-				for(int y = 0; y < u[0].length; y++)
+				if(this.varyFAndK)
 				{
-					uvv = u[x][y] * v[x][y] * v[x][y];
-					newU[x][y] = u[x][y] + timeStep * (f * (1 - u[x][y]) - uvv + ru * lapacian(x, y, u));
-					newV[x][y] = v[x][y] + timeStep * (-(f + k) * v[x][y] + uvv + rv * lapacian(x, y, v));
+	
+					float tempK = 0.03f;
+					float tempF = 0.08f;
+			
+					float deltaK = 0.04f / u.length;
+					float deltaF = 0.08f / u[0].length;		
+	
+					for(int x = 0; x < u.length; x++)
+					{
+						for(int y = 0; y < u[0].length; y++)
+						{
+							uvv = u[x][y] * v[x][y] * v[x][y];
+							newU[x][y] = u[x][y] + timeStep * (tempF * (1 - u[x][y]) - uvv + ru * lapacian(x, y, u));
+							newV[x][y] = v[x][y] + timeStep * (-(tempF + tempK) * v[x][y] + uvv + rv * lapacian(x, y, v));
 
-				//	newU[x][y] = u[x][y] + ru * lapacian(x, y, u) * timeStep;
-					//newV[x][y] = v[x][y] + rv * lapacian(x, y, v) * timeStep;
+							tempF -= deltaF;
+						}
+					
+						tempK += deltaK;
+						tempF = 0.08f;	
+					}
+				}
+				else
+				{
+					for(int x = 0; x < u.length; x++)
+					{
+						for(int y = 0; y < u[0].length; y++)
+						{		
+							uvv = u[x][y] * v[x][y] * v[x][y];
+							newU[x][y] = u[x][y] + timeStep * (f * (1 - u[x][y]) - uvv + ru * lapacian(x, y, u));
+							newV[x][y] = v[x][y] + timeStep * (-(f + k) * v[x][y] + uvv + rv * lapacian(x, y, v));
+						}
+					}
 				}
 			}
-
+			else
+			{
+				for(int x = 0; x < u.length; x++)
+				{
+					for(int y = 0; y < u[0].length; y++)
+					{
+						newU[x][y] = u[x][y] + ru * lapacian(x, y, u) * timeStep;
+						newV[x][y] = v[x][y] + rv * lapacian(x, y, v) * timeStep;
+					}
+				}
+			}
 
 			temp = this.u;
 			this.u = this.newU;
@@ -273,6 +310,6 @@ public class Simulator
 	public static final float threeF = 0.0118f;
 	public static final float threeK = 0.0475f;
 	
-	public static final float fourF = 0.0f;
-	public static final float fourK = 0.0f;
+	public static final float fourF = 0.061f;
+	public static final float fourK = 0.061f;
 }
