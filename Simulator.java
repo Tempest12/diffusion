@@ -264,13 +264,13 @@ public class Simulator
 					minU = u[x][y];
 				}
 
-				if(u[x][y] > maxU)
+				if(v[x][y] > maxV)
 				{
-					maxU = u[x][y];
+					maxV = v[x][y];
 				}
-				if(u[x][y] < minU)
+				if(v[x][y] < minV)
 				{
-					minU = u[x][y];
+					minV = v[x][y];
 				}
 			}
 		}

@@ -13,13 +13,13 @@ public class Config
 
 	//Simulation Stuff
 	public static int ticks = 1;
-	public static float timeStep = 1.25f;
+	public static float timeStep = 1.20f;
 	
 	public static boolean startOnLoad = true;
 	public static boolean varyFAndK = false;
-	public static int defaultFAndK = 2;
+	public static int defaultFAndK = 1;
 	
-	public static int numberOfRandomBlocks = 100;
+	public static int numberOfRandomBlocks = 17;
 
 
 	//Window Stuff
